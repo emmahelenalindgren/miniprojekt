@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>Formulär</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    
+ <body> 
+    <h1>Röstregistrering</h1>
+     <p>Hej! Skriv in resultat här:</p>
+    <form action="">
+        <select id="m" placeholder="Vallokal" name="Vallokal">
+  <option value="vasakyrkan">Vasakyrkan</option>
+  <option value="masthuggskyrkan">Masthuggskyrkan</option>
+  <option value="gardstenskyrkan">Gårdstenskyrkan</option>
+  <option value="kortedalakyrka">Kortedala kyrka</option>
+</select>
+     
+        <input placeholder="Parti" id="a" autocomplete="off" />
+        <input type="number" placeholder="Antal röster" id="b" autocomplete="off" />
+        <button>Send</button>
+    </form>
+     
+     
+     <script src="/socket.io/socket.io.js"></script>
+     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+
+     <script>
+         
+         
+  $(function () {
+    var socket = io();
+    $('form').submit(function(){
+      socket.emit('vallokal', $('#m').val());
+      $('#m').val('');
+          socket.emit('parti', $('#a').val());
+     $('#a').val('');
+         socket.emit('roster', $('#b').val());
+      $('#b').val('');
+      return false;
+    });
+  });
+
+     </script>
+     
+     
+  </body>
+</html>
+
